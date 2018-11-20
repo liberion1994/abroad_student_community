@@ -33,12 +33,6 @@ export default class Index extends Component {
   render () {
     return (
       <View className='index'>
-
-        <AtButton className='add_btn' onClick={this.props.add}>+</AtButton>
-        <AtButton className='dec_btn' onClick={this.props.dec}>-</AtButton>
-        {/*<Button className='dec_btn' onClick={this.props.dispatch({type: 'home/add', payload: {}})}>async</Button>*/}
-        <View><Text>{this.props.num}</Text></View>
-        <View><Text>Hello, World</Text></View>
       </View>
     )
   }

@@ -1,10 +1,6 @@
 import Taro from '@tarojs/taro';
 import { baseUrl, noConsole } from '../config';
 
-const request_data = {
-  platform: 'wap',
-  rent_mode: 2,
-};
 
 export default (options = { method: 'GET', data: {} }) => {
   if (!noConsole) {
@@ -13,7 +9,6 @@ export default (options = { method: 'GET', data: {} }) => {
   return Taro.request({
     url: baseUrl + options.url,
     data: {
-      ...request_data,
       ...options.data
     },
     header: {

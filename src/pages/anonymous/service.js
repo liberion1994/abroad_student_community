@@ -6,8 +6,8 @@ export const feeds = data => Request({
   data,
 });
 
-export const product = data => Request({
-  url: '/product/filter',
-  method: 'GET',
+export const likes = ({postId, ...data}) => Request({
+  url: `/posts/${postId}/likes`,
+  method: 'POST',
   data,
 });

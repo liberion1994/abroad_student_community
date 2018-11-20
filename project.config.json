@@ -4,12 +4,13 @@
 	"description": "",
 	"appid": "wx54a22ba2a604b131",
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": false,
 		"postcss": false,
 		"minified": false,
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
+	"libVersion": "2.2.3",
 	"condition": {}
 }

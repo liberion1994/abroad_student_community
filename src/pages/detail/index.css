@@ -1,0 +1,39 @@
+.detail-container {
+}
+
+.publisher-info-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.two-column-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.content-container {
+  margin-top: 20px;
+  padding: 16px;
+  font-size: 14Px;
+}
+
+.like-field {
+  flex: 1;
+  text-align: center;
+}
+
+.like-container {
+  display: flex;
+  flex-direction: row;
+  color: #666;
+}
+
+.number-container {
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.comments-container {
+  padding: 32px;
+  font-size: 14Px;
+}

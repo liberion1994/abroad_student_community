@@ -1,9 +1,9 @@
 import Taro, { Component } from '@tarojs/taro'
 import { connect } from '@tarojs/redux'
-import { View, Text, ScrollView } from '@tarojs/components'
+import { View, Button, ScrollView } from '@tarojs/components'
 import { AtButton, AtCard } from 'taro-ui'
 
-import AnonymousCard from '../../components/anonymous-card'
+import AnonymousCard from '../../components/anonymous-card/index'
 import './index.css'
 
 @connect(({ anonymous }) => ({
@@ -19,12 +19,28 @@ export default class Index extends Component {
   constructor() {
     super(...arguments);
     this.state = {
-      showRefresh: false
     }
   }
 
   componentWillReceiveProps (nextProps) {
     console.log(this.props, nextProps)
+  }
+
+  componentWillMount() {
+    Taro.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.userInfo']) {
+          // Taro.authorize({
+          //   scope: 'scope.userInfo',
+          //   success (a, b) {
+          //     // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
+          //     console.log(a, b);
+          //   }
+          // })
+        }
+      }
+    });
+    this.props.dispatch({type: 'anonymous/load'});
   }
 
   componentWillUnmount () { }
@@ -34,11 +50,12 @@ export default class Index extends Component {
   componentDidHide () { }
 
   onPullDownRefresh() {
-    this.props.dispatch({type: 'anonymous/load'});
+    this.props.dispatch({ type: 'anonymous/load' });
   }
 
   onClickFeed(item) {
-    Taro.navigateTo({url: `../detail/index?feedId=${item.postId}`});
+    this.props.dispatch({ type: 'detail/loadData', payload: { feed: item } });
+    Taro.navigateTo({url: `../detail/index?feedType=anonymous&feedId=${item.postId}`});
   }
 
   render () {
@@ -47,7 +64,7 @@ export default class Index extends Component {
         <View>
           {this.props.feeds.map((item, index) =>
             <AnonymousCard
-              key={index}
+              key={item.postId}
               item={item}
               onClick={this.onClickFeed}
             >

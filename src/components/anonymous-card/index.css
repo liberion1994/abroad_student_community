@@ -1,0 +1,23 @@
+.bottom-field {
+  flex: 1;
+  text-align: center;
+}
+
+.bottom-container {
+  display: flex;
+  flex-direction: row;
+  margin: 8px 0;
+  color: #666;
+}
+
+.number-container {
+  display: inline-block;
+  margin-left: 5px;
+  font-size: 11Px;
+}
+
+.container {
+  margin: 6px 0;
+  padding: 12px 0;
+  background-color: #fff;
+}

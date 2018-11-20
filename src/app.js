@@ -1,10 +1,11 @@
 import '@tarojs/async-await'
 import Taro, { Component } from '@tarojs/taro'
 import { Provider } from '@tarojs/redux'
+
+import 'taro-icons/scss/FontAwesome.scss'
+
 import dva from './utils/dva'
 import models from './models'
-
-
 import Index from './pages/anonymous'
 
 import './app.css'
@@ -15,11 +16,11 @@ const dvaApp = dva.createApp({
 });
 const store = dvaApp.getStore();
 
-
 class App extends Component {
 
   config = {
     pages: [
+      'pages/welcome/index',
       'pages/anonymous/index',
       'pages/realname/index',
       'pages/detail/index'
@@ -48,6 +49,8 @@ class App extends Component {
       }]
     }
   };
+
+  componentWillMount() {}
 
   componentDidMount () {}
 
