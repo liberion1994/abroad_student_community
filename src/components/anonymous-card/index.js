@@ -33,7 +33,6 @@ export default class AnonymousCard extends Component {
           </View>
           <View className='bottom-field'>
             <FontAwesome family='regular' name='share-square' size={11} color='666' style='margin-right:2px;' />
-            <View className='number-container'>{item.likes[1]}</View>
           </View>
         </View>
       </View>

@@ -10,7 +10,7 @@ export default {
     feeds: [],
   },
   effects: {
-    * load(_, {call, put}) {
+    * load (_, {call, put}) {
       yield put({ type: 'startFetching' });
       const feeds = yield call(apis.feeds, {});
       yield put({ type: 'save', payload: { feeds: feeds } });
@@ -18,22 +18,27 @@ export default {
       yield put({ type: 'finishFetching' });
     },
 
-    * like(index, postId, userId, {call, put}) {
+    * like ({ index, postId, userId }, { call, put }) {
       const feeds = yield call(apis.likes, { postId });
-      yield put({ type: 'save', payload: { feeds: update(feeds, {index: {likes: {$push: userId}}}) } });
+      yield put({ type: 'save', payload: { feeds: update(feeds, {[index]: {likes: {$push: userId}}}) } });
     }
   },
   reducers: {
-    startFetching(state) {
+    startFetching (state) {
       return { ...state, isFetching: true };
     },
 
-    finishFetching(state) {
+    finishFetching (state) {
       return { ...state, isFetching: false };
     },
 
-    save(state, { payload }) {
+    save (state, { payload }) {
       return { ...state, ...payload };
     },
+
+    sync (state, { feed }) {
+      const feedId = feed.postId;
+
+    }
   },
 };

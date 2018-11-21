@@ -8,8 +8,8 @@ import formatTimestamp from '../../utils/tools';
 import './index.css'
 import CommentBlock from "../../components/comment-block";
 
-@connect(({ detail }) => ({
-  ...detail
+@connect(({ detail, userInfo }) => ({
+  ...detail, ...userInfo
 }))
 export default class Index extends Component {
 
@@ -17,14 +17,6 @@ export default class Index extends Component {
     navigationBarTitleText: '详情'
   };
 
-  constructor () {
-    super(...arguments);
-    this.state = {
-      feedType: null,
-      feedId: null,
-
-    }
-  }
 
   componentWillReceiveProps (nextProps) {
     console.log(this.props, nextProps);
@@ -32,23 +24,24 @@ export default class Index extends Component {
   }
 
   componentWillMount () {
-    console.log(this.$router.params);
-    const { feedType, feedId } = this.$router.params;
-    this.setState({ feedType: feedType, feedId: feedId });
+    // console.log(this.$router.params);
   }
+
+  componentWillUnmount () { }
 
   componentDidShow () { }
 
   componentDidHide () { }
 
   onClickLike () {
-
+    this.props.dispatch({ type: 'detail/like' });
   }
 
   onClickShare () {}
 
   render () {
-    const { feed } = this.props;
+    const { userId, feed } = this.props;
+    const liked = (feed.likes || []).includes(userId);
     return (
       <View className='detail-container'>
         <view style='background-color:#eee;padding:16px;'>
@@ -72,12 +65,16 @@ export default class Index extends Component {
           </View>
           <View className='like-container'>
             <View className='like-field'>
-              <FontAwesome family='regular' name='heart' size={12} color='#666' style='margin-right:2px;' />
-              <View className='number-container' style='font-size:12px;'>{feed.likes[0]}</View>
+              <View onClick={this.onClickLike} style='display:inline;'>
+                {liked ?
+                  <FontAwesome family='solid' name='heart' size={12} color='#f33' style='margin-right:2px;' /> :
+                  <FontAwesome family='regular' name='heart' size={12} color='#666' style='margin-right:2px;' />
+                }
+              </View>
+              <View className='number-container' style='font-size:12px;'>{feed.likes && feed.likes.length || 0}</View>
             </View>
             <View className='like-field'>
               <FontAwesome family='regular' name='share-square' size={12} color='666' style='margin-right:2px;' />
-              <View className='number-container' style='font-size:12px;'>{feed.likes[1]}</View>
             </View>
           </View>
         </view>

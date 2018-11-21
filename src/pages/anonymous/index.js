@@ -27,19 +27,6 @@ export default class Index extends Component {
   }
 
   componentWillMount() {
-    Taro.getSetting({
-      success(res) {
-        if (!res.authSetting['scope.userInfo']) {
-          // Taro.authorize({
-          //   scope: 'scope.userInfo',
-          //   success (a, b) {
-          //     // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
-          //     console.log(a, b);
-          //   }
-          // })
-        }
-      }
-    });
     this.props.dispatch({type: 'anonymous/load'});
   }
 
@@ -54,8 +41,8 @@ export default class Index extends Component {
   }
 
   onClickFeed(item) {
-    this.props.dispatch({ type: 'detail/loadData', payload: { feed: item } });
-    Taro.navigateTo({url: `../detail/index?feedType=anonymous&feedId=${item.postId}`});
+    this.props.dispatch({ type: 'detail/save', payload: { feed: item, feedType: 'anonymous' } });
+    Taro.navigateTo({url: `../detail/index`});
   }
 
   render () {
