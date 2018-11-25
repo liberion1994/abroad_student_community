@@ -14,12 +14,13 @@ export default {
     * login (_, { put }) {
       try {
         const { code } = yield Taro.login();
+        console.log(code);
         // const userId = yield Request({
         //   url: '/posts',
         //   method: 'GET',
         //   data: { code: code },
         // });
-        const userId = 'mocked';
+        const userId = 'mocked4';
         yield put({ type: 'save', payload: { userId: userId } });
       } catch (e) {
         Taro.showToast({title: '登录失败，请检查网络设置'})

@@ -11,9 +11,9 @@ export default {
   effects: {
     * like (_, { select, call, put }) {
       const { feed, userId } = yield select(state => ({ feed: state.detail.feed, userId: state.userInfo.userId }));
-      const res = yield call(apis.likes, { postId: feed.postId, userId, postTimestamp: Date.now() });
+      const res = yield call(apis.likes, { postId: feed.postId, userId, postTimestamp: feed.timestamp });
       console.log(res);
-      yield put({ type: 'save', payload: { feed: update(feed, {likes: {$push: userId}}) } });
+      yield put({ type: 'save', payload: { feed: update(feed, {likes: {$push: [userId]}}) } });
     }
   },
   reducers: {
