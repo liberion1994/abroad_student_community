@@ -15,13 +15,12 @@ export default {
       try {
         const { code } = yield Taro.login();
         console.log(code);
-        // const userId = yield Request({
-        //   url: '/posts',
-        //   method: 'GET',
-        //   data: { code: code },
-        // });
-        const userId = 'mocked4';
-        yield put({ type: 'save', payload: { userId: userId } });
+        const { openid } = yield Request({
+          url: '/users',
+          method: 'GET',
+          data: { js_code: code },
+        });
+        yield put({ type: 'save', payload: { userId: openid } });
       } catch (e) {
         Taro.showToast({title: '登录失败，请检查网络设置'})
       }
@@ -29,7 +28,6 @@ export default {
 
     * restoreLocal (_, { put }) {
       const { keys } = yield Taro.getStorageInfo();
-      console.log(keys, keys.includes(USER_INFO_KEY));
       yield put({ type: 'save', payload: { authState: USER_INFO_KEY in keys } });
       if (keys.includes(USER_INFO_KEY)) {
         const { data } = yield Taro.getStorage({ key: USER_INFO_KEY });
@@ -40,10 +38,7 @@ export default {
     },
 
     * saveInfo({ info }, { put }) {
-      console.log('save');
       yield Taro.setStorage({ key: USER_INFO_KEY, data: info });
-      const i = yield Taro.getStorage({ key: USER_INFO_KEY });
-      console.log(i);
       yield put({ type: 'save', payload: { authState: true, info: info }});
     },
   },
